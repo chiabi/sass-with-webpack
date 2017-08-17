@@ -1,0 +1,33 @@
+@function _is-int($value) {
+  
+}
+
+// 유효한 길이인지 확인
+@function _is-length($value) {
+  // 값이 auto
+  @if('auto' == $value) {
+    @return true;
+  }
+  @if('number' == type-of($value)) {
+    // number 이면서 0 이거나 unit이 있을 때
+    @if('' != unit($value) or 0 == $value) {
+      @return true;
+    }
+  }
+  @if('string' == type-of($value)) {
+    // calc()로 된 문자열일때
+    @if (1 == str-index($value, 'calc')) {
+      @return true;
+    }
+  }
+  @return false;
+}
+
+// 유효한 수인지 확인
+@function _is-number($value) {
+  // 타입이 number이고 unit이 없을때 true
+  @if ('number' == type-of($value) and '' == unit($value)) {
+    @return true;
+  }
+  @return false;
+}
